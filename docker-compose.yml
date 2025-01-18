@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  mysql:
+    image: mysql:8.0-debian
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_HOST: "mysql"
+      MYSQL_PASSWORD: "test123"
+      MYSQL_USER: "user"
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_DATABASE: "my_db"
+    networks:
+      - two-tier-app-network
+    volumes:
+      - /home/ubuntu/docker_practice/Two_Tier_App/mysql_data:/var/lib/mysql
+
+  flask:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - mysql
+    restart: always
+    environment:
+      MYSQL_HOST: "mysql"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "admin"
+      MYSQL_DB: "my_db"
+    networks:
+      - two-tier-app-network
+
+networks:
+  two-tier-app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
