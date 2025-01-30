@@ -4,8 +4,9 @@ metadata:
   name: mysql-deployment
   labels:
     app: mysql-deployment
+  namespace: dev-two-tier
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   replicas: 2
   selector:
