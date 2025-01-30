@@ -2,7 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: flask-service
-  namespace: development
+  namespace: dev-two-tier
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   type: NodePort
   selector:
