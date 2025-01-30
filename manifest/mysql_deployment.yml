@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mysql-deployment
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: 2
   selector:
@@ -50,7 +50,7 @@ metadata:
     # insert any desired labels to identify your claim
     app: test-pvc
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   storageClassName: standard
   accessModes:
