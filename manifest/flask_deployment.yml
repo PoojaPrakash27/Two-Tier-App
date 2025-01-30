@@ -6,7 +6,7 @@ metadata:
     app: flask-deployment
   namespace: dev-two-tier
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: 4
   selector:
