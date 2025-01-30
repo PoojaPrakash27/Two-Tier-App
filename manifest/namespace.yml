@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: development
+  name: dev-two-tier
   labels:
-    name: development
+    name: dev-two-tier
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 
