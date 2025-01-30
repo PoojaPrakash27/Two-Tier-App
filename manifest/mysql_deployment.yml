@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0-debian
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_HOST 
+            value: mysql
+          - name: MYSQL_USER
+            value: user
+          - name: MYSQL_PASSWORD
+            value: test123
+          - name: MYSQL_ROOT_PASSWORD
+            value: admin
+          - name: MYSQL_DATABASE
+            value: my_db
+        volumeMounts:
+        - name: volume
+          mountPath: /pvc/
+      volumes:
+      - name: volume
+        persistentVolumeClaim:
+          claimName: test-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test-pvc
+  labels:
+    # insert any desired labels to identify your claim
+    app: test-pvc
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      # The amount of the volume's storage to request
+      storage: 1Gi
